@@ -1,0 +1,25 @@
+html {
+    background-color: rgb(125, 164, 173);
+}
+
+body {
+    color: brown;
+}
+
+p {
+    background-color: rgb(14, 54, 54);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+img {
+    width: 200px;
+}
+
+#first text element {
+    margin: 10px;
+    border-color: blueviolet;
+    border: 10px;
+    padding: 10px;
+    color: blue;
+    text-align: center;
+}
