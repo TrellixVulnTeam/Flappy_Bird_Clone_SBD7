@@ -13,7 +13,13 @@
     <meta name="author" content="Nico Berndt">
     <!--    refreshes website every 10 seconds  -->
     <!--    meta http-equiv="refresh" content="10"  -->
+    <!--    CSS Stylesheet  -->
     <link rel="stylesheet" href="./stylesheets/style.css">
+    <!--    Google fonts    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap" rel="stylesheet">
+    <!--    JavaScript Code     -->
     <script src="./js_code/code.js"></script>
 
     <title>Flappy Bird Clone</title>
@@ -27,24 +33,27 @@
     <nav>
         <!--    nav section     -->
         <ul>
-            <li><a href="./index.html" id="nav">Game</a></li>
-            <li><a href="./Leaderboard.html" id="nav">Leaderboard</a></li>
-            <li><a href="./impressum.html" id="nav">About</a></li>
-            <li><a href="https://github.com/yazawa69" target="_blank" id="nav">Git</a></li>
+            <li class="li1"><a href="./index.html" id="nav">Game</a></li>
+            <li class="li2"><a href="./Leaderboard.html" id="nav">Leaderboard</a></li>
+            <li class="li3"><a href="./impressum.html" id="nav">About</a></li>
+            <li class="li4"><a href="https://github.com/yazawa69" target="_blank" id="nav">Git</a></li>
         </ul>
-        <br><br>
     </nav>
 
     <main>
-        <canvas id="myCanvas" width="700" height="500"></canvas>
+        <canvas id="mainCanvas" width="700" height="500">Wenn du diese Nachricht lesen kannst unterstützt dein Browser den Canvas von HTML5 leider nicht</canvas>
 
         <aside>
-            <p>Here will be the tutorial</p>
+            <p>Here will be the tutorial and it will flow next to the canvas</p>
         </aside>
     </main>
 
-    <footer>
-        <h2>this is my footer title</h2>
+    <footer id="findex">
+        <Label>Choose a language:</Label>
+        <select name="Language">
+            <option value="german">German</option>
+            <option value="english">English</option>
+        </select>
     </footer>
 </body>
 
