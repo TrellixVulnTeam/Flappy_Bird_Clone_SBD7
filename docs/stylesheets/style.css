@@ -47,6 +47,7 @@ li {
 }
 
 canvas {
+    width: 60%;
     position: sticky;
     top: 0;
     display: block;
