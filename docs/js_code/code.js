@@ -14,7 +14,7 @@ imgArray[1] = new Image();
 var fgX = 0;
 var fgV = 150;
 var bgX = 0;
-var bgV = 50*10;
+var bgV = 50;
 var y = 0;
 var yV = 10;
 
