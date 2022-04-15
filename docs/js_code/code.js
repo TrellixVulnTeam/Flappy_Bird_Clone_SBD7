@@ -12,9 +12,9 @@ imgArray[1] = new Image();
 
 //draw variables
 var fgX = 0;
-var fgV = 150*5;
+var fgV = 150;
 var bgX = 0;
-var bgV = 50*5;
+var bgV = 50;
 var y = 0;
 var yV = 10;
 
@@ -28,6 +28,8 @@ window.onload = function init() {
 
     canvas = document.getElementById("mainCanvas");
     ctx = canvas.getContext("2d", {antialias: true});
+    canvas.width = screen.width*.6;
+    canvas.height = screen.height*.7;
     width = canvas.scrollWidth;
     height = canvas.scrollHeight;
     
@@ -111,7 +113,7 @@ function repeatImage(image, counter, x, y, xLength, yLength, repeater) {
 
 // get input
 window.addEventListener('keydown', event => {
-    if(event.key === 's'){
+    if(event.key === ' '){
         event.preventDefault();
         yV -= 1000;
     }
