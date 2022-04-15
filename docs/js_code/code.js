@@ -4,9 +4,10 @@ var canvas;
 var ctx;
 var width;
 var height;
-var select = document.getElementById("selectLang");
-var de = "./index.html";
-var de = "./englishIndex.html";
+
+//imgs
+var imgArray = new Array();
+imgArray[0] = new Image();
 
 //draw variables
 var imgX = 0;
@@ -19,9 +20,6 @@ var deltaTime = 0;
 var lastFrameTime = 0;
 var fps;
 
-//imgs
-var img = new Image();
-
 window.onload = function init() {
 
     canvas = document.getElementById("mainCanvas");
@@ -29,9 +27,7 @@ window.onload = function init() {
     width = canvas.scrollWidth;
     height = canvas.scrollHeight;
     
-    img.src = 'assets/mongolia.png';
-    //img = document.getElementById(img);
-    //https://yazawa69.github.io/Flappy_Bird_Clone/assets/mongolia.png
+    imgArray[0].src = 'assets/mongolia.png';
     
     //start first Frame request
     window.requestAnimationFrame(gameLoop);
@@ -58,13 +54,9 @@ function gameLoop(timeStamp) {
 }
 
 function update() {
-    //background color
-    ctx.fillStyle = 'red';
-    ctx.fillRect(0, 0, width, height);
-    ctx.drawImage(img, imgX, 0, width, height);
-    if (imgX < 0) {
-        repeatBackground(img);
-    }
+    //background image
+    var counter = 0;
+    repeatBackground(imgArray[0], counter);
 
     // Draw  Fps to the screen
     ctx.beginPath();
@@ -93,15 +85,14 @@ function fixedUpdate() {
     }
 
     // background movement
-    imgX -= imgXV * deltaTime;
+    imgX -= imgXV * deltaTime *5;
 }
 
 // repeat background
-function repeatBackground(image) {
-    var counter;
-    ctx.drawImage(image, imgX+width, 0, width, height);
-    if (image < 0){
-        repeatBackground(image);
+function repeatBackground(image, counter) {
+    ctx.drawImage(image, imgX+width*counter, 0, width, height);
+    if (imgX+width*counter < 0){
+        counter += 1;
+        repeatBackground(image, counter);
     }
-    counter += 1;
 }
