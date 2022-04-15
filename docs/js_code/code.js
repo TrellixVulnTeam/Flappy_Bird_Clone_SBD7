@@ -66,8 +66,8 @@ function gameLoop(timeStamp) {
 function update() {
     //background image
     var counter = 0;
-    repeatImage(imgArray[0], counter, bgX, -150, cWidth*2, cHeight*2, 2);
-    repeatImage(imgArray[1], counter, fgX, cHeight-50, cWidth, cHeight, 1);
+    repeatImage(imgArray[0], counter, bgX, -cHeight/9, cWidth*2, cHeight*2, 2);
+    repeatImage(imgArray[1], counter, fgX, cHeight-cHeight/12, cWidth, cHeight, 1);
 
     // Draw  Fps to the screen
     ctx.beginPath();
@@ -80,7 +80,7 @@ function update() {
     //drawing the rectangle
     ctx.beginPath();
     ctx.fillStyle = 'blue';
-    ctx.fillRect(150, y, 50, 50);
+    ctx.fillRect(150, y, cWidth/15, cHeight/10);
 }
 
 // do physics
@@ -115,6 +115,7 @@ function repeatImage(image, counter, x, y, xLength, yLength, repeater) {
 // get input
 window.addEventListener('keydown', event => {
     if(event.key === ' '){
+        // TODO: make jumpforce relative to different screen sizes;
         event.preventDefault();
         yV -= 1000;
     }
