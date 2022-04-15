@@ -8,10 +8,13 @@ var height;
 //imgs
 var imgArray = new Array();
 imgArray[0] = new Image();
+imgArray[1] = new Image();
 
 //draw variables
-var imgX = 0;
-var imgXV = 100;
+var fgX = 0;
+var fgV = 150*5;
+var bgX = 0;
+var bgV = 50*5;
 var y = 0;
 var yV = 10;
 
@@ -20,6 +23,7 @@ var deltaTime = 0;
 var lastFrameTime = 0;
 var fps;
 
+// ****************************         Initialisierung nachdem alles geladen hat           **************************** //
 window.onload = function init() {
 
     canvas = document.getElementById("mainCanvas");
@@ -28,11 +32,13 @@ window.onload = function init() {
     height = canvas.scrollHeight;
     
     imgArray[0].src = 'assets/mongolia.png';
+    imgArray[1].src = 'assets/spongebob.gif';
     
     //start first Frame request
     window.requestAnimationFrame(gameLoop);
 }
 
+// ****************************         Basic stuff for the game inside the canvas          **************************** //
 function gameLoop(timeStamp) {
     //clear all
     ctx.clearRect(0, 0, width, height);
@@ -53,15 +59,17 @@ function gameLoop(timeStamp) {
     window.requestAnimationFrame(gameLoop);
 }
 
+// draw
 function update() {
     //background image
     var counter = 0;
-    repeatBackground(imgArray[0], counter);
+    repeatImage(imgArray[0], counter, bgX, -150, width*2, height*2, 2);
+    repeatImage(imgArray[1], counter, fgX, height-50, width, height, 1);
 
     // Draw  Fps to the screen
     ctx.beginPath();
     ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, 115, 45);
+    ctx.fillRect(0, 0, width, 45);
     ctx.font = '25px Arial';
     ctx.fillStyle = 'red';
     ctx.fillText("FPS: " + fps, 10, 30);
@@ -72,6 +80,7 @@ function update() {
     ctx.fillRect(150, y, 50, 50);
 }
 
+// do physics
 function fixedUpdate() {
     //fall
     y += yV * deltaTime;
@@ -85,14 +94,28 @@ function fixedUpdate() {
     }
 
     // background movement
-    imgX -= imgXV * deltaTime *5;
+    bgX -= bgV * deltaTime;
+    // forground movement
+    fgX -= fgV * deltaTime;
 }
 
-// repeat background
-function repeatBackground(image, counter) {
-    ctx.drawImage(image, imgX+width*counter, 0, width, height);
-    if (imgX+width*counter < 0){
-        counter += 1;
-        repeatBackground(image, counter);
+// ****************************         Advanced stuff for the game in the canvas           **************************** //
+// will repeat the image after one repeater duration
+function repeatImage(image, counter, x, y, xLength, yLength, repeater) {
+    ctx.drawImage(image, x+width*counter, y, xLength, yLength);
+    if (x+width*counter < 0){
+        counter += repeater;
+        repeatImage(image, counter, x, y, xLength, yLength, repeater);
     }
 }
+
+// get input
+window.addEventListener('keydown', event => {
+    if(event.key === 's'){
+        event.preventDefault();
+        yV -= 1000;
+    }
+});
+
+
+// ****************************             Change language & other stuff                   **************************** //
