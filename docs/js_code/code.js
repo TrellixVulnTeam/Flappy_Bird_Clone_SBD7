@@ -29,8 +29,9 @@ window.onload = function init() {
     width = canvas.scrollWidth;
     height = canvas.scrollHeight;
     
-    img.src = '/docs/assets/mongolia.png';
+    img.src = '/assets/mongolia.png';
     //img = document.getElementById("img");
+    //https://yazawa69.github.io/Flappy_Bird_Clone/assets/mongolia.png
     
     //start first Frame request
     window.requestAnimationFrame(gameLoop);
