@@ -2,8 +2,8 @@
 //init variables
 var canvas;
 var ctx;
-var width;
-var height;
+var cWidth;
+var cHeight;
 
 //imgs
 var imgArray = new Array();
@@ -14,7 +14,7 @@ imgArray[1] = new Image();
 var fgX = 0;
 var fgV = 150;
 var bgX = 0;
-var bgV = 50;
+var bgV = 50*10;
 var y = 0;
 var yV = 10;
 
@@ -28,10 +28,11 @@ window.onload = function init() {
 
     canvas = document.getElementById("mainCanvas");
     ctx = canvas.getContext("2d", {antialias: true});
+
     canvas.width = screen.width*.6;
     canvas.height = screen.height*.7;
-    width = canvas.scrollWidth;
-    height = canvas.scrollHeight;
+    cWidth = canvas.width;
+    cHeight = canvas.height;
     
     imgArray[0].src = 'assets/mongolia.png';
     imgArray[1].src = 'assets/spongebob.gif';
@@ -43,7 +44,7 @@ window.onload = function init() {
 // ****************************         Basic stuff for the game inside the canvas          **************************** //
 function gameLoop(timeStamp) {
     //clear all
-    ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, cWidth, cHeight);
     
     // Calculate the number of seconds passed since the last frame
     deltaTime = (timeStamp - lastFrameTime) / 1000;
@@ -65,16 +66,16 @@ function gameLoop(timeStamp) {
 function update() {
     //background image
     var counter = 0;
-    repeatImage(imgArray[0], counter, bgX, -150, width*2, height*2, 2);
-    repeatImage(imgArray[1], counter, fgX, height-50, width, height, 1);
+    repeatImage(imgArray[0], counter, bgX, -150, cWidth*2, cHeight*2, 2);
+    repeatImage(imgArray[1], counter, fgX, cHeight-50, cWidth, cHeight, 1);
 
     // Draw  Fps to the screen
     ctx.beginPath();
     ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, width, 45);
+    ctx.fillRect(0, 0, cWidth, 45);
     ctx.font = '25px Arial';
     ctx.fillStyle = 'red';
-    ctx.fillText("FPS: " + fps, 10, 30);
+    ctx.fillText("FPS: " + fps+" "+cWidth+" "+cHeight, 10, 30);
 
     //drawing the rectangle
     ctx.beginPath();
@@ -88,7 +89,7 @@ function fixedUpdate() {
     y += yV * deltaTime;
 
     // gravity
-    if (y < height - 60) {
+    if (y < cHeight - 60) {
         yV += 9.81;
     }
     else {
@@ -104,8 +105,8 @@ function fixedUpdate() {
 // ****************************         Advanced stuff for the game in the canvas           **************************** //
 // will repeat the image after one repeater duration
 function repeatImage(image, counter, x, y, xLength, yLength, repeater) {
-    ctx.drawImage(image, x+width*counter, y, xLength, yLength);
-    if (x+width*counter < 0){
+    ctx.drawImage(image, x+cWidth*counter, y, xLength, yLength);
+    if (x+cWidth*counter < 0){
         counter += repeater;
         repeatImage(image, counter, x, y, xLength, yLength, repeater);
     }
