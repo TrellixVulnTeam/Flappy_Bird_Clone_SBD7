@@ -29,8 +29,8 @@ window.onload = function init() {
     width = canvas.scrollWidth;
     height = canvas.scrollHeight;
     
-    //img.src = '/docs/assets/mongolia.png';
-    img = document.getElementById("img");
+    img.src = '/docs/assets/mongolia.png';
+    //img = document.getElementById("img");
     
     //start first Frame request
     window.requestAnimationFrame(gameLoop);
