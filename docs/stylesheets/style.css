@@ -7,7 +7,7 @@ html {
 header {
     font-family: 'Rubik Bubbles', 'Arial', 'sans-serif';
     color: rgb(245, 228, 228);
-    background-color: rgb(15, 22, 142);
+    background-color: rgb(15, 142, 91);
     padding: 10px;
 }
 
@@ -79,4 +79,14 @@ aside {
     text-align: right;
     position: sticky;
     bottom: 0;
+}
+
+/* sources */
+.sdiv .sclass {
+    color: rgb(15, 92, 0);
+}
+
+.sdiv [href]:hover {
+    color:rgb(204, 255, 0);
+    text-shadow: rgb(53, 67, 0);
 }
