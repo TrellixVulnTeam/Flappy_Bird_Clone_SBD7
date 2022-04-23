@@ -1,4 +1,8 @@
 /* this is how you use comments in CSS */
+*{
+    padding: 0;
+    margin: 0;
+}
 
 html {
     background-color: rgb(125, 164, 173);
