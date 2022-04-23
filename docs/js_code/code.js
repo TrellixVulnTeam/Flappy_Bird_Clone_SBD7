@@ -11,16 +11,23 @@ const imgArray = new Array(20);
 imgArray[0] = new Image();
 imgArray[1] = new Image();
 
-// draw variables
+// velocities
+// foreground
 let fgX = 0;
 const fgV = 150;
+// background
 let bgX = 0;
 const bgV = 50;
+// bird
+let yV = 10;
+
+// bird variables
 const xbird = 150;
 let ybird = 400;
 let birdlength;
 let birdheight;
-let yV = 10;
+
+// pillar variables
 
 // delay
 let hasNotJumped = true;
@@ -30,7 +37,7 @@ let deltaTime = 0;
 let lastFrameTime = 0;
 let fps;
 
-// FIXME: !!!  i need to make every size relative to the screen also the speed of everything !!!
+// TODO: !!!  i need to make every size relative to the screen ... also the speed of everything !!!
 // ****************************         Initialisierung nachdem alles geladen hat           **************************** //
 
 window.onload = function init() {
@@ -81,7 +88,7 @@ function update() {
     repeatImage(imgArray[0], counter, bgX, -cHeight / 9, cWidth * 2, cHeight * 2, 2, false, false);
     repeatImage(imgArray[1], counter, fgX, cHeight - cHeight / 12, cWidth, cHeight, 1, false, false);
 
-    // FIXME: !!! make pillar heigth random !!!
+    // TODO: !!! make pillar heigth random !!!
     // Säulen Top
     repeatImage(imgArray[1], counter, fgX + cWidth / 2, 0, 100, 300, 1, true, true);
     repeatImage(imgArray[1], counter, fgX, 0, 100, 200, 1, true, true);
