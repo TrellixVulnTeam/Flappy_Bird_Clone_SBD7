@@ -30,7 +30,7 @@ let deltaTime = 0;
 let lastFrameTime = 0;
 let fps;
 
-// FIXME: i need to make every size relative to the screen
+// FIXME: !!!  i need to make every size relative to the screen also the speed of everything !!!
 // ****************************         Initialisierung nachdem alles geladen hat           **************************** //
 
 window.onload = function init() {
@@ -81,7 +81,7 @@ function update() {
     repeatImage(imgArray[0], counter, bgX, -cHeight / 9, cWidth * 2, cHeight * 2, 2, false, false);
     repeatImage(imgArray[1], counter, fgX, cHeight - cHeight / 12, cWidth, cHeight, 1, false, false);
 
-    // FIXME: make pillar heigth random
+    // FIXME: !!! make pillar heigth random !!!
     // Säulen Top
     repeatImage(imgArray[1], counter, fgX + cWidth / 2, 0, 100, 300, 1, true, true);
     repeatImage(imgArray[1], counter, fgX, 0, 100, 200, 1, true, true);
