@@ -51,13 +51,19 @@ li {
 }
 
 canvas {
-    /*width: 60%;*/
     position: sticky;
     top: 0;
     display: block;
     border-style: groove;
     border-radius: 5px;
     border-color: black;
+    margin: 0 auto;
+}
+
+#maindiv {
+    position: sticky;
+    top: 0;
+    display: block;
     margin: 0 auto;
 }
 

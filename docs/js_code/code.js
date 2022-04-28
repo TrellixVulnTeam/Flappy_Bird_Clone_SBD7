@@ -14,23 +14,36 @@ imgArray[1] = new Image();
 // velocities
 // foreground
 let fgX = 0;
-const fgV = 150;
+let fgV;
 // background
 let bgX = 0;
-const bgV = 50;
+let bgV;
 // bird
-let yV = 10;
+let yV;
+let gravity;
+let jumpPower;
 
 // bird variables
-const xbird = 150;
-let ybird = 400;
+let xbird;
+let ybird;
 let birdlength;
 let birdheight;
 
 // pillar variables
+// top
+let randomYLength;
+let randomYLength2;
+let initYLength;
+let initYLength2;
+let initXLength;
+let abstand;
 
 // delay
 let hasNotJumped = true;
+
+// Points
+let points;
+let isAlive = true;
 
 // time variables
 let deltaTime = 0;
@@ -41,19 +54,45 @@ let fps;
 // ****************************         Initialisierung nachdem alles geladen hat           **************************** //
 
 window.onload = function init() {
+    // init variables
     canvas = document.getElementById("mainCanvas");
     ctx = canvas.getContext("2d", { antialias: true });
-
     canvas.width = screen.width * .6;
     canvas.height = screen.height * .9;
     cWidth = canvas.width;
     cHeight = canvas.height;
 
+    // imgs
+    imgArray[0].src = "assets/mongolia.png";
+    imgArray[1].src = "assets/spongebob.gif";
+
+    // velocities
+    // foreground
+    fgV = cHeight / 3.072;
+    // background
+    bgV = cHeight / 15.36;
+    // bird
+    yV = 0;
+    gravity = cHeight / 9;
+    jumpPower = cHeight * 3;
+
+    // bird variables
+    xbird = cWidth / 5.12;
+    ybird = cHeight / 2.16;
     birdlength = cWidth / 15;
     birdheight = cHeight / 12;
 
-    imgArray[0].src = "assets/mongolia.png";
-    imgArray[1].src = "assets/spongebob.gif";
+    // pillar variables
+    // top
+    randomYLength = [cHeight / 6.48, cHeight / 3.24, cHeight / 4.32, cHeight / 1.851, cHeight / 2.16, cHeight / 2.592];
+    randomYLength2 = [cHeight / 1.993, cHeight / 2.357, cHeight / 2.88, cHeight / 3.7, cHeight / 5.184, cHeight / 2];
+    initYLength = cHeight / 2.16;
+    initYLength2 = cHeight / 3.24;
+    initXLength = cWidth / 5.24;
+    abstand = cHeight / 3.085;
+
+    // Points
+    points = 0;
 
     // start first Frame request
     window.requestAnimationFrame(gameLoop);
@@ -85,16 +124,15 @@ function gameLoop(timeStamp) {
 function update() {
     // background image
     const counter = 0;
-    repeatImage(imgArray[0], counter, bgX, -cHeight / 9, cWidth * 2, cHeight * 2, 2, false, false);
-    repeatImage(imgArray[1], counter, fgX, cHeight - cHeight / 12, cWidth, cHeight, 1, false, false);
-
-    // TODO: !!! make pillar heigth random !!!
+    repeatImage(imgArray[0], counter, bgX, -cHeight / 9, cWidth * 2, cHeight * 2, 2, false, false, false);
     // Säulen Top
-    repeatImage(imgArray[1], counter, fgX + cWidth / 2, 0, 100, 300, 1, true, true);
-    repeatImage(imgArray[1], counter, fgX, 0, 100, 200, 1, true, true);
+    repeatImage(imgArray[1], counter + 1, fgX + cWidth / 2, 0, initXLength, initYLength, 1, true, true, true);
+    repeatImage(imgArray[1], counter + 1, fgX, 0, initXLength, initYLength2, 1, true, true, false);
     // Säulen Bottom
-    repeatImage(imgArray[1], counter, fgX + cWidth / 2, 300 + 210, 100, 300, 1, true, false);
-    repeatImage(imgArray[1], counter, fgX, 200 + 210, 100, 400, 1, true, false);
+    repeatImage(imgArray[1], counter + 1, fgX + cWidth / 2, initYLength + 210, initXLength, cHeight, 1, true, false, true);
+    repeatImage(imgArray[1], counter + 1, fgX, initYLength + 210, initXLength, cHeight, 1, true, false, false);
+    // Draw Ground
+    repeatImage(imgArray[1], counter, fgX, cHeight - cHeight / 12, cWidth, cHeight, 1, false, false, false);
 
     // Draw  Fps to the screen
     ctx.beginPath();
@@ -102,12 +140,20 @@ function update() {
     ctx.fillRect(0, 0, cWidth, 45);
     ctx.font = "25px Arial";
     ctx.fillStyle = "red";
-    ctx.fillText("FPS: " + fps + " " + cWidth + " " + cHeight, 10, 30);
+    ctx.fillText("FPS: " + fps + " cwidth:" + cWidth + " cheight:" + cHeight + " Points: " + points, 10, 30);
 
     // drawing the rectangle
     ctx.beginPath();
     ctx.fillStyle = "blue";
     ctx.fillRect(xbird, ybird, birdlength, birdheight);
+
+    if (!isAlive) {
+        const path = new Path2D();
+        path.rect(xbird, ybird, birdlength, birdheight);
+        path.closePath();
+        ctx.fillStyle = "red";
+        ctx.fill(path);
+    }
 }
 
 // do physics
@@ -117,7 +163,7 @@ function fixedUpdate() {
 
     // gravity
     if (ybird < cHeight - birdheight) {
-        yV += 70;
+        yV += gravity;
     } else {
         yV = 0;
     }
@@ -129,6 +175,11 @@ function fixedUpdate() {
     bgX -= bgV * deltaTime;
     // forground movement
     fgX -= fgV * deltaTime;
+
+    // stop game if ground touched
+    if (ybird + birdheight > cHeight - cHeight / 12) {
+        die();
+    }
 }
 
 // ****************************         Advanced stuff for the game in the canvas           **************************** //
@@ -138,7 +189,7 @@ function fixedUpdate() {
 // xPos and yPos: start Position of the image, xLength and yLength: size of the picture,
 // repeater: tells at which rate the picture should be redrawn,
 // isPillaar: boolean for pillar or background
-function repeatImage(image, counter, xPos, yPos, xLength, yLength, repeater, isPillar, isTop) {
+function repeatImage(image, counter, xPos, yPos, xLength, yLength, repeater, isPillar, isTop, first) {
     const newXPos = xPos + cWidth * counter;
     ctx.drawImage(image, newXPos, yPos, xLength, yLength);
     // check if the pillar touched the bird
@@ -152,7 +203,7 @@ function repeatImage(image, counter, xPos, yPos, xLength, yLength, repeater, isP
             ctx.lineTo(newXPos + xLength, yLength);
             ctx.lineTo(newXPos + xLength, yPos);
             ctx.stroke();
-            yV = 0;
+            die();
         }
         // check if pillar is bottom
         if (newXPos <= xbird + birdlength && newXPos + xLength >= xbird && ybird + birdlength >= yPos && !isTop) {
@@ -163,13 +214,28 @@ function repeatImage(image, counter, xPos, yPos, xLength, yLength, repeater, isP
             ctx.lineTo(newXPos + xLength, yPos);
             ctx.lineTo(newXPos + xLength, cHeight);
             ctx.stroke();
-            yV = 0;
+            die();
+        }
+        if (newXPos <= xbird && newXPos >= xbird - cWidth / 219 && isTop) {
+            points += 1;
         }
     }
     // draw next image, after the current image x is less than 0
     if (newXPos < 0) {
         counter += repeater;
-        repeatImage(image, counter, xPos, yPos, xLength, yLength, repeater, isPillar, isTop);
+        // choose next yLength
+        const i = counter % randomYLength.length;
+        if (isPillar && isTop && first) {
+            repeatImage(image, counter, xPos, yPos, xLength, randomYLength[i], repeater, isPillar, isTop, first);
+        } else if (isPillar && isTop && !first) {
+            repeatImage(image, counter, xPos, yPos, xLength, randomYLength2[i], repeater, isPillar, isTop, first);
+        } else if (isPillar && !isTop && first) {
+            repeatImage(image, counter, xPos, randomYLength[i] + abstand, xLength, yLength, repeater, isPillar, isTop, first);
+        } else if (isPillar && !isTop && !first) {
+            repeatImage(image, counter, xPos, randomYLength2[i] + abstand, xLength, yLength, repeater, isPillar, isTop, first);
+        } else {
+            repeatImage(image, counter, xPos, yPos, xLength, yLength, repeater, isPillar, isTop, first);
+        }
     }
 }
 
@@ -178,7 +244,7 @@ window.addEventListener("keydown", (event) => {
     if (event.key === " " && hasNotJumped) {
         event.preventDefault();
         // jump
-        yV -= cHeight * 3;
+        yV -= jumpPower;
         test();
     }
 });
@@ -192,5 +258,16 @@ async function test() {
     await delay(150);
     hasNotJumped = true;
 }
+
+function die() {
+    yV = 0;
+    jumpPower = 0;
+    bgV = 0;
+    fgV = 0;
+    isAlive = false;
+}
+
+// ****************************        Game Controller for start & death screen              **************************** //
+
 
 // ****************************             Change language & other stuff                   **************************** //

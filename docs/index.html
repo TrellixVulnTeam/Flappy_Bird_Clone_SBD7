@@ -42,8 +42,11 @@
         </ul>
     </nav>
 
-    <main>
-        <canvas id="mainCanvas" width="700" height="500">Wenn du diese Nachricht lesen kannst unterstützt dein Browser den Canvas von HTML5 leider nicht</canvas>
+    <main id="maindiv">
+        <div>
+            <canvas id="mainCanvas" style="z-index: 1;" width="700" height="500">Wenn du diese Nachricht lesen kannst unterstützt dein Browser den Canvas von HTML5 leider nicht</canvas>
+            <input type="button" style="z-index: 2; position: absolute; top: 50%; left: 50%;" value="test"/>
+        </div>
         <aside>
             <p>Here will be the tutorial and it will flow next to the canvas</p>
         </aside>
