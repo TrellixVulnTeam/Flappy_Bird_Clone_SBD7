@@ -5,6 +5,7 @@ let canvas;
 let ctx;
 let cWidth;
 let cHeight;
+let button;
 
 // imgs
 const imgArray = new Array(20);
@@ -40,6 +41,7 @@ let abstand;
 
 // delay
 let hasNotJumped = true;
+let currentPoints;
 
 // Points
 let points;
@@ -61,6 +63,7 @@ window.onload = function init() {
     canvas.height = screen.height * .9;
     cWidth = canvas.width;
     cHeight = canvas.height;
+    button = document.getElementById("startButton");
 
     // imgs
     imgArray[0].src = "assets/mongolia.png";
@@ -93,6 +96,7 @@ window.onload = function init() {
 
     // Points
     points = 0;
+    currentPoints = points;
 
     // start first Frame request
     window.requestAnimationFrame(gameLoop);
@@ -129,8 +133,8 @@ function update() {
     repeatImage(imgArray[1], counter + 1, fgX + cWidth / 2, 0, initXLength, initYLength, 1, true, true, true);
     repeatImage(imgArray[1], counter + 1, fgX, 0, initXLength, initYLength2, 1, true, true, false);
     // Säulen Bottom
-    repeatImage(imgArray[1], counter + 1, fgX + cWidth / 2, initYLength + 210, initXLength, cHeight, 1, true, false, true);
-    repeatImage(imgArray[1], counter + 1, fgX, initYLength + 210, initXLength, cHeight, 1, true, false, false);
+    repeatImage(imgArray[1], counter + 1, fgX + cWidth / 2, initYLength + abstand, initXLength, cHeight, 1, true, false, true);
+    repeatImage(imgArray[1], counter + 1, fgX, initYLength2 + abstand, initXLength, cHeight, 1, true, false, false);
     // Draw Ground
     repeatImage(imgArray[1], counter, fgX, cHeight - cHeight / 12, cWidth, cHeight, 1, false, false, false);
 
@@ -138,9 +142,9 @@ function update() {
     ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, cWidth, 45);
-    ctx.font = "25px Arial";
+    ctx.font = "125% Arial";
     ctx.fillStyle = "red";
-    ctx.fillText("FPS: " + fps + " cwidth:" + cWidth + " cheight:" + cHeight + " Points: " + points, 10, 30);
+    ctx.fillText("FPS: " + fps + " cwidth:" + cWidth + " cheight:" + cHeight + " Points: " + points + " currentPoints: " + currentPoints, 10, 30);
 
     // drawing the rectangle
     ctx.beginPath();
@@ -153,6 +157,15 @@ function update() {
         path.closePath();
         ctx.fillStyle = "red";
         ctx.fill(path);
+    }
+
+    // Draw points in middle of screen
+    if (currentPoints + 1 == points) {
+        ctx.beginPath();
+        ctx.font = "500% Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText(points, xbird + birdlength / 3, cHeight / 3);
+        pointDisplay();
     }
 }
 
@@ -216,8 +229,10 @@ function repeatImage(image, counter, xPos, yPos, xLength, yLength, repeater, isP
             ctx.stroke();
             die();
         }
-        if (newXPos <= xbird && newXPos >= xbird - cWidth / 219 && isTop) {
-            points += 1;
+        if (isAlive) {
+            if (newXPos <= xbird && newXPos >= xbird - cWidth / 219 && isTop) {
+                points += 1;
+            }
         }
     }
     // draw next image, after the current image x is less than 0
@@ -245,29 +260,41 @@ window.addEventListener("keydown", (event) => {
         event.preventDefault();
         // jump
         yV -= jumpPower;
-        test();
+        jumpPause();
     }
 });
 
-// Delay next jump, so the player cant spam jumping.
+// Delay until time is over
 function delay(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
-async function test() {
+// Delay next jump, so the player cant spam jumping.
+async function jumpPause() {
     hasNotJumped = false;
     await delay(150);
     hasNotJumped = true;
 }
+// Show Points on screen only for a short time
+async function pointDisplay() {
+    await delay(500);
+    currentPoints = points;
+}
 
 function die() {
+    isAlive = false;
     yV = 0;
     jumpPower = 0;
     bgV = 0;
     fgV = 0;
-    isAlive = false;
 }
 
 // ****************************        Game Controller for start & death screen              **************************** //
-
+// Start & and restart game
+console.log("hello");
+const button2 = document.getElementById("button");
+console.log(button2);
+button2.addEventListener("click", function(event) {
+    alert(event.target);
+});
 
 // ****************************             Change language & other stuff                   **************************** //
