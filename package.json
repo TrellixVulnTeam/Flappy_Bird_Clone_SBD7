@@ -11,8 +11,5 @@
   "devDependencies": {
     "eslint": "^8.13.0",
     "eslint-config-google": "^0.14.0"
-  },
-  "dependencies": {
-    "nedb": "^1.8.0"
   }
 }
