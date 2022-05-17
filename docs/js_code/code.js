@@ -5,7 +5,8 @@ let canvas;
 let ctx;
 let cWidth;
 let cHeight;
-let button;
+let startButton;
+let saveButton;
 
 // imgs
 const imgArray = new Array(20);
@@ -57,13 +58,20 @@ let fps;
 
 window.onload = function init() {
     // init variables
+    // Main Canvas
     canvas = document.getElementById("mainCanvas");
     ctx = canvas.getContext("2d", { antialias: true });
     canvas.width = screen.width * .6;
     canvas.height = screen.height * .9;
     cWidth = canvas.width;
     cHeight = canvas.height;
-    button = document.getElementById("startButton");
+
+    // Start Button
+    startButton = document.getElementById("startButton");
+    startButton.addEventListener("click", clickHandler);
+    // Save Button
+    saveButton = document.getElementById("saveButton");
+    saveButton.addEventListener("click", saveHandler);
 
     // imgs
     imgArray[0].src = "assets/mongolia.png";
@@ -97,6 +105,7 @@ window.onload = function init() {
     // Points
     points = 0;
     currentPoints = points;
+    localStorage.setItem("Points", points);
 
     // start first Frame request
     window.requestAnimationFrame(gameLoop);
@@ -284,17 +293,21 @@ function die() {
     isAlive = false;
     yV = 0;
     jumpPower = 0;
-    bgV = 0;
+    // bgV = 0;
     fgV = 0;
 }
 
 // ****************************        Game Controller for start & death screen              **************************** //
 // Start & and restart game
-console.log("hello");
-const button2 = document.getElementById("button");
-console.log(button2);
-button2.addEventListener("click", function(event) {
-    alert(event.target);
-});
-
+// eslint-disable-next-line no-unused-vars
+function clickHandler(event) {
+    console.log("startButton Clicked");
+    window.location.reload();
+}
+// save points
+// eslint-disable-next-line no-unused-vars
+function saveHandler(event) {
+    console.log("saveButton Clicked");
+    localStorage.setItem("Points", points);
+}
 // ****************************             Change language & other stuff                   **************************** //
