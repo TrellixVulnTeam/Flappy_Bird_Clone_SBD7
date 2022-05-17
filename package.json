@@ -11,9 +11,5 @@
   "devDependencies": {
     "eslint": "^8.13.0",
     "eslint-config-google": "^0.14.0"
-  },
-  "dependencies": {
-    "sqlite": "^4.1.1",
-    "sqlite3": "^5.0.8"
   }
 }

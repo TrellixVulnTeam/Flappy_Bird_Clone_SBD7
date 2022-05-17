@@ -77,7 +77,7 @@ window.onload = function init() {
     saveButton.addEventListener("click", saveHandler);
 
     // imgs
-    imgArray[0].src = "assets/mongolia.png";
+    imgArray[0].src = "assets/mongolia2.jpg";
     imgArray[1].src = "assets/spongebob.gif";
 
     // velocities
@@ -140,7 +140,7 @@ function gameLoop(timeStamp) {
 function update() {
     // background image
     const counter = 0;
-    repeatImage(imgArray[0], counter, bgX, -cHeight / 9, cWidth * 2, cHeight * 2, 2, false, false, false);
+    repeatImage(imgArray[0], counter, bgX, -cHeight, cWidth * 2, cHeight * 2, 2, false, false, false);
     // Säulen Top
     repeatImage(imgArray[1], counter + 1, fgX + cWidth / 2, 0, initXLength, initYLength, 1, true, true, true);
     repeatImage(imgArray[1], counter + 1, fgX, 0, initXLength, initYLength2, 1, true, true, false);
