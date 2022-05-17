@@ -54,9 +54,6 @@ let lastFrameTime = 0;
 let fps;
 
 // Database
-const Datastore = require("nedb");
-const database = new Datastore("database.db");
-database.loadDatabase();
 
 
 // TODO: !!!  i need to make every size relative to the screen ... also the speed of everything !!!
