@@ -117,9 +117,6 @@ window.onload = function init() {
 // ****************************         Basic stuff for the game inside the canvas          **************************** //
 
 function gameLoop(timeStamp) {
-    // clear all
-    ctx.clearRect(0, 0, cWidth, cHeight);
-
     // Calculate the number of seconds passed since the last frame
     deltaTime = (timeStamp - lastFrameTime) / 1000;
     lastFrameTime = timeStamp;
@@ -127,6 +124,8 @@ function gameLoop(timeStamp) {
     // Calculate fps
     fps = Math.round(1 / deltaTime);
 
+    // clear all
+    ctx.clearRect(0, 0, cWidth, cHeight);
     // draw
     update();
     // physics
@@ -187,6 +186,9 @@ function fixedUpdate() {
     ybird += yV * deltaTime;
 
     // gravity
+    if (fps > 61) {
+        gravity /= 2;
+    }
     if (ybird < cHeight - birdheight) {
         yV += gravity;
     } else {
