@@ -87,7 +87,8 @@ window.onload = function init() {
     // bird
     yV = 0;
     gravity = cHeight / 9;
-    jumpPower = cHeight * 10;
+    jumpPower = 4461;
+    // figureOutJumpPower();
 
     // bird variables
     xbird = cWidth / 5.12;
@@ -297,6 +298,11 @@ function die() {
     jumpPower = 0;
     // bgV = 0;
     fgV = 0;
+}
+
+// eslint-disable-next-line no-unused-vars
+function figureOutJumpPower() {
+
 }
 
 // ****************************        Game Controller for start & death screen              **************************** //
