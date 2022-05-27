@@ -63,8 +63,8 @@ window.onload = function init() {
     // Main Canvas
     canvas = document.getElementById("mainCanvas");
     ctx = canvas.getContext("2d", { antialias: true });
-    canvas.width = 921; // screen.width * .6;
-    canvas.height = 777; // screen.height * .9;
+    canvas.width = screen.width * .6;
+    canvas.height = screen.height * .9;
     cWidth = canvas.width;
     cHeight = canvas.height;
 
@@ -186,8 +186,8 @@ function fixedUpdate() {
     ybird += yV * deltaTime;
 
     // gravity
-    if (fps > 61) {
-        gravity /= 2;
+    if (fps > 62) {
+        gravity /= 1.1;
     }
     if (ybird < cHeight - birdheight) {
         yV += gravity;
