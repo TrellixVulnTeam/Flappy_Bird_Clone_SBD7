@@ -43,6 +43,9 @@ let abstand;
 // delay
 let hasNotJumped = true;
 let currentPoints;
+let jumpDelay = 10000;
+let displayDelay = 50000;
+let relativiser = 219;
 
 // Points
 let points;
@@ -123,6 +126,14 @@ function gameLoop(timeStamp) {
 
     // Calculate fps
     fps = Math.round(1 / deltaTime);
+    // normalize different framerates
+    if (fps > 62) {
+        jumpDelay = 15000;
+        displayDelay = 100000;
+        jumpPower = cHeight * 4;
+        gravity = cHeight / 14;
+        relativiser = 438;
+    }
 
     // clear all
     ctx.clearRect(0, 0, cWidth, cHeight);
@@ -171,7 +182,7 @@ function update() {
     }
 
     // Draw points in middle of screen
-    if (currentPoints + 1 == points) {
+    if (currentPoints == points - 1) {
         ctx.beginPath();
         ctx.font = "500% Arial";
         ctx.fillStyle = "white";
@@ -186,9 +197,6 @@ function fixedUpdate() {
     ybird += yV * deltaTime;
 
     // gravity
-    if (fps > 62) {
-        gravity /= 1.1;
-    }
     if (ybird < cHeight - birdheight) {
         yV += gravity;
     } else {
@@ -244,7 +252,7 @@ function repeatImage(image, counter, xPos, yPos, xLength, yLength, repeater, isP
             die();
         }
         if (isAlive) {
-            if (newXPos <= xbird && newXPos >= xbird - cWidth / 219 && isTop) {
+            if (newXPos <= xbird && newXPos >= xbird - cWidth / relativiser && isTop) {
                 points += 1;
             }
         }
@@ -285,12 +293,12 @@ function delay(time) {
 // Delay next jump, so the player cant spam jumping.
 async function jumpPause() {
     hasNotJumped = false;
-    await delay(10000 * deltaTime);
+    await delay(jumpDelay * deltaTime);
     hasNotJumped = true;
 }
 // Show Points on screen only for a short time
 async function pointDisplay() {
-    await delay(50000 * deltaTime);
+    await delay(displayDelay * deltaTime);
     currentPoints = points;
 }
 
