@@ -63,8 +63,8 @@ window.onload = function init() {
     // Main Canvas
     canvas = document.getElementById("mainCanvas");
     ctx = canvas.getContext("2d", { antialias: true });
-    canvas.width = screen.width * .6;
-    canvas.height = screen.height * .9;
+    canvas.width = 921; // screen.width * .6;
+    canvas.height = 777; // screen.height * .9;
     cWidth = canvas.width;
     cHeight = canvas.height;
 
@@ -87,7 +87,7 @@ window.onload = function init() {
     // bird
     yV = 0;
     gravity = cHeight / 9;
-    jumpPower = 4461;
+    jumpPower = cHeight * 3;
     // figureOutJumpPower();
 
     // bird variables
