@@ -282,12 +282,12 @@ function delay(time) {
 // Delay next jump, so the player cant spam jumping.
 async function jumpPause() {
     hasNotJumped = false;
-    await delay(150);
+    await delay(10000 * deltaTime);
     hasNotJumped = true;
 }
 // Show Points on screen only for a short time
 async function pointDisplay() {
-    await delay(500);
+    await delay(50000 * deltaTime);
     currentPoints = points;
 }
 
