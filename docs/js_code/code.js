@@ -45,11 +45,11 @@ let hasNotJumped = true;
 let currentPoints;
 let jumpDelay = 10000;
 let displayDelay = 50000;
-let relativiser = 219;
 
 // Points
 let points;
 let isAlive = true;
+let relativiser = 219;
 
 // time variables
 let deltaTime = 0;
@@ -58,7 +58,7 @@ let fps;
 
 // Database
 
-// TODO: jumping is still not relative.
+
 // ****************************         Initialisierung nachdem alles geladen hat           **************************** //
 
 window.onload = function init() {
