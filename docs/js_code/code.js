@@ -55,7 +55,7 @@ let fps;
 
 // Database
 
-// TODO: jumping is still not relative, also the display of the score.
+// TODO: jumping is still not relative.
 // ****************************         Initialisierung nachdem alles geladen hat           **************************** //
 
 window.onload = function init() {
@@ -87,7 +87,7 @@ window.onload = function init() {
     // bird
     yV = 0;
     gravity = cHeight / 9;
-    jumpPower = cHeight * 3;
+    jumpPower = cHeight * 10;
 
     // bird variables
     xbird = cWidth / 5.12;
