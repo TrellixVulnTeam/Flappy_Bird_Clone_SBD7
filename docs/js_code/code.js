@@ -55,8 +55,7 @@ let fps;
 
 // Database
 
-
-// TODO: !!!  i need to make every size relative to the screen ... also the speed of everything !!!
+// TODO: jumping is still not relative, also the display of the score.
 // ****************************         Initialisierung nachdem alles geladen hat           **************************** //
 
 window.onload = function init() {
