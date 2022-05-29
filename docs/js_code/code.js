@@ -56,9 +56,6 @@ let deltaTime = 0;
 let lastFrameTime = 0;
 let fps;
 
-// Database
-
-
 // ****************************         Initialisierung nachdem alles geladen hat           **************************** //
 
 window.onload = function init() {
@@ -328,4 +325,3 @@ function saveHandler(event) {
     console.log("saveButton Clicked");
     localStorage.setItem("Points", points);
 }
-// ****************************             Change language & other stuff                   **************************** //
