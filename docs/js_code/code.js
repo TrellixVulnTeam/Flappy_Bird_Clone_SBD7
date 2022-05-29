@@ -47,7 +47,7 @@ let jumpDelay = 10000;
 let displayDelay = 50000;
 
 // Points
-let points;
+let points = 0;
 let isAlive = true;
 let relativiser = 219;
 
