@@ -50,6 +50,7 @@ let displayDelay = 50000;
 let points = 0;
 let isAlive = true;
 let relativiser = 219;
+let id;
 
 // time variables
 let deltaTime = 0;
@@ -303,13 +304,8 @@ function die() {
     isAlive = false;
     yV = 0;
     jumpPower = 0;
-    // bgV = 0;
+    bgV = 0;
     fgV = 0;
-}
-
-// eslint-disable-next-line no-unused-vars
-function figureOutJumpPower() {
-
 }
 
 // ****************************        Game Controller for start & death screen              **************************** //
@@ -323,5 +319,9 @@ function clickHandler(event) {
 // eslint-disable-next-line no-unused-vars
 function saveHandler(event) {
     console.log("saveButton Clicked");
-    localStorage.setItem("Points", points);
+    if (localStorage.getItem("Points") < points) {
+        localStorage.setItem("Points", points);
+        main(id, "max", points);
+        id++;
+    }
 }

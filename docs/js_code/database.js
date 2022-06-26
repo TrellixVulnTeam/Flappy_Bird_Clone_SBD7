@@ -10,10 +10,10 @@ const db = await sqlite.open({
 });
 
 // ****************************                  Database functions                         **************************** //
-async function main() {
-    const highscores = await db.all("SELECT * FROM highscores");
+function main() {
+    const highscores = db.all("SELECT * FROM highscores");
     console.log(highscores);
-    await db.close();
+    db.close();
 }
 
 window.onload = function init() {
