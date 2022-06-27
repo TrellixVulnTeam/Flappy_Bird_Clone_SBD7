@@ -12,6 +12,7 @@ let saveButton;
 const imgArray = new Array(20);
 imgArray[0] = new Image();
 imgArray[1] = new Image();
+imgArray[2] = new Image();
 
 // velocities
 // foreground
@@ -50,7 +51,8 @@ let displayDelay = 50000;
 let points = 0;
 let isAlive = true;
 let relativiser = 219;
-let id;
+localStorage.setItem("Points", 0);
+let showHighscore = false;
 
 // time variables
 let deltaTime = 0;
@@ -78,7 +80,8 @@ window.onload = function init() {
 
     // imgs
     imgArray[0].src = "assets/mongolia2.jpg";
-    imgArray[1].src = "assets/spongebob.gif";
+    imgArray[1].src = "assets/saeule.png";
+    imgArray[2].src = "assets/boden.jpg";
 
     // velocities
     // foreground
@@ -156,7 +159,7 @@ function update() {
     repeatImage(imgArray[1], counter + 1, fgX + cWidth / 2, initYLength + abstand, initXLength, cHeight, 1, true, false, true);
     repeatImage(imgArray[1], counter + 1, fgX, initYLength2 + abstand, initXLength, cHeight, 1, true, false, false);
     // Draw Ground
-    repeatImage(imgArray[1], counter, fgX, cHeight - cHeight / 12, cWidth, cHeight, 1, false, false, false);
+    repeatImage(imgArray[2], counter, fgX, cHeight - cHeight / 12, cWidth, cHeight, 1, false, false, false);
 
     // Draw  Fps to the screen
     ctx.beginPath();
@@ -186,6 +189,15 @@ function update() {
         ctx.fillStyle = "white";
         ctx.fillText(points, xbird + birdlength / 3, cHeight / 3);
         pointDisplay();
+    }
+
+    // show Highscore
+    if (showHighscore) {
+        const s = localStorage.getItem("Points");
+        ctx.beginPath();
+        ctx.font = "500% Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText("Highscore: " + s, xbird + birdlength / 3, cHeight / 3);
     }
 }
 
@@ -321,7 +333,6 @@ function saveHandler(event) {
     console.log("saveButton Clicked");
     if (localStorage.getItem("Points") < points) {
         localStorage.setItem("Points", points);
-        main(id, "max", points);
-        id++;
     }
+    showHighscore = true;
 }
