@@ -128,7 +128,7 @@ function gameLoop(timeStamp) {
     // Calculate fps
     fps = Math.round(1 / deltaTime);
     // normalize different framerates
-    if (fps > 62) {
+    if (fps > 65) {
         jumpDelay = 15000;
         displayDelay = 100000;
         jumpPower = cHeight * 4;
